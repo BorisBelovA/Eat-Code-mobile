@@ -1,0 +1,21 @@
+<ion-slides [options]="sliderOptions">
+  <ion-slide *ngFor="let item of categories">
+    <ion-item lines="none">
+      <ion-grid class="ion-justify-content-center">
+        <ion-row>
+          <ion-col>
+            <div 
+              class="image"
+              [ngStyle]="{'background-image': 'url('+basePathToTimages+item.img+')'}"
+              ></div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="ion-text-center">
+            <p class="title">{{item.title}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-slide>
+</ion-slides>

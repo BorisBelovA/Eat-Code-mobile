@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recommendations-slider',
@@ -12,6 +12,12 @@ export class RecommendationsSliderComponent implements OnInit {
     speed: 400,
     slidesPerView: 1.7
   };
+
+  @Input()
+  public items: any[] = [];
+
+  @Input()
+  public itemType: 'verticalCard' | 'block' = 'verticalCard';
   
   constructor() { }
 

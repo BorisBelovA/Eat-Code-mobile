@@ -1,6 +1,8 @@
-<ion-item>
-  <ion-grid>
-    
+<ion-item lines="none">
+  <ion-grid class="meal-container ion-no-padding">
+
+    <!-- Фото -->
+
     <ion-row>
       <ion-col size="12">
         <img 
@@ -10,23 +12,30 @@
       </ion-col>
     </ion-row>
     
+    <!-- Название -->
+
     <ion-row class="ion-justify-content-center ion-align-items-center">
-      <p class="meal-title">Item title</p>
+      <h4 class="meal-title">Item title</h4>
     </ion-row>
 
-    <ion-row class="ion-justify-content-between ion-align-items-center">
-      <ion-col size="1">
-        <ion-icon name="star"></ion-icon>
-      </ion-col>
-      <ion-col size="10">
-        <p class="meal-rating">Item rating</p>
+    <!-- Рейтинг -->
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="8" >
+        <ion-row class="ion-justify-content-evenly">
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star"></ion-icon>
+          <ion-icon name="star-half-outline"></ion-icon>
+          <ion-icon name="star-outline"></ion-icon>
+        </ion-row>
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col size="12">
-        <ion-button expand="full">Добавить в заказ</ion-button>
-      </ion-col>
+    <!-- Баттон -->
+
+    <ion-row class="ion-justify-content-center">
+      <ion-button>Добавить в заказ</ion-button>
     </ion-row>
   </ion-grid>
 </ion-item>

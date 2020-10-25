@@ -1,11 +1,18 @@
-<ion-slides pager="true" [options]="slideOpts">
-  <ion-slide>
-    <app-vertical-card></app-vertical-card>
-  </ion-slide>
-  <ion-slide>
-    <h1>Slide 2</h1>
-  </ion-slide>
-  <ion-slide>
-    <h1>Slide 3</h1>
-  </ion-slide>
-</ion-slides>
+<ng-container *ngIf="itemType === 'verticalCard'; else blocksSlider">
+  <ion-slides [options]="slideOpts">
+    <ion-slide>
+      <app-vertical-card></app-vertical-card>
+    </ion-slide>
+    <ion-slide>
+      <app-vertical-card></app-vertical-card>
+    </ion-slide>
+    <ion-slide>
+      <app-vertical-card></app-vertical-card>
+    </ion-slide>
+    <ion-slide>
+      <app-vertical-card></app-vertical-card>
+    </ion-slide>
+  </ion-slides>
+</ng-container>
+
+<ng-template #blocksSlider></ng-template>
