@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoryService } from 'src/app/services/category.service';
+import * as Models from 'models';
 
 @Component({
   selector: 'app-category-item',
@@ -9,38 +11,17 @@ export class CategoryItemComponent implements OnInit {
 
   public basePathToTimages = '../../assets/icon/restaurant-icons/';
 
-  public categories = [
-    {
-      title: 'Алкоголь',
-      img: '001-wine.svg'
-    },
-    {
-      title: 'Горячие блюда',
-      img: '042-pot.svg'
-    },
-    {
-      title: 'Супы',
-      img: '016-soup.svg' 
-    },
-    {
-      title: 'Суши',
-      img: '034-sushi.svg'
-    },
-    {
-      title: 'Стейки',
-      img: '035-steak.svg'
-    }
-  ]
-
   public sliderOptions = {
     initialSlide: 0,
     speed: 400,
     slidesPerView: 'auto',
   }
 
-  image = '../../assets/icon/restaurant-icons/001-wine.svg'
+  public image = '../../assets/icon/restaurant-icons/001-wine.svg'
 
-  constructor() { }
+  public categories: Models.Category[] = this.categoryService.getCategories();
+  
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {}
 
