@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-main',
@@ -9,7 +10,8 @@ import { AnimationController } from '@ionic/angular';
 export class MainComponent implements OnInit, AfterViewInit {
 
   constructor(
-    private animationCtrl: AnimationController
+    private animationCtrl: AnimationController,
+    private categoryService: CategoryService
   ) { }
 
   ngOnInit() {}

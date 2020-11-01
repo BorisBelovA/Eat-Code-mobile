@@ -1,5 +1,7 @@
 {
   "name": "Eat-Code-mobile",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

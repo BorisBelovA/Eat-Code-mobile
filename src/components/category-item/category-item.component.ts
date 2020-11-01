@@ -14,7 +14,7 @@ export class CategoryItemComponent implements OnInit {
   public sliderOptions = {
     initialSlide: 0,
     speed: 400,
-    slidesPerView: 'auto',
+    slidesPerView: 3,
   }
 
   public image = '../../assets/icon/restaurant-icons/001-wine.svg'

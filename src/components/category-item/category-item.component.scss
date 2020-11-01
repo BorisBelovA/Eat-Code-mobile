@@ -2,12 +2,7 @@
     content: url('../../assets/icon/restaurant-icons/001-wine.svg');
 }
 
-.icon {
-    // width: 5em;
-}
-
 .image {
-    // background-image: url('../../assets/icon/restaurant-icons/001-wine.svg');
     height: 5em;
     width: 5em;
     margin: auto;
@@ -19,10 +14,4 @@
 .title {
     font-size: 18px;
     margin: 0;
-}
-
-:host::ng-deep {
-    ion-slide {
-        width: 9em !important;
-    }
 }
