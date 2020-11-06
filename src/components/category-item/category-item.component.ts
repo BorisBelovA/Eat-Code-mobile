@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
 import * as Models from 'models';
 
@@ -21,8 +21,13 @@ export class CategoryItemComponent implements OnInit {
 
   public categories: Models.Category[] = this.categoryService.getCategories();
   
+  public selectCategory: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {}
 
+  public onCategorySelect(categoryId): void {
+    this.selectCategory.emit(categoryId);
+  }
 }

@@ -14,7 +14,9 @@
     </ion-row>
     <ion-row class="ion-margin-bottom">
       <ion-col size="12">
-        <app-category-item></app-category-item>
+        <app-category-item
+          (selectCategory)="onCategorySelect($event)">
+        </app-category-item>
       </ion-col>
     </ion-row>
 

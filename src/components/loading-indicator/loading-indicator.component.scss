@@ -1,0 +1,11 @@
+$container-height: 80px;
+$container-width: 150px;
+
+.spinner-container {
+  position: absolute;
+  top: calc(50vh - $container-height);
+  left: calc(50vw - $container-width);
+  display: flex;
+  align-items: center;
+  background-color: white;
+}

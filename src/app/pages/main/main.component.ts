@@ -25,4 +25,8 @@ export class MainComponent implements OnInit, AfterViewInit {
     // animation.play();
   }
 
+  public onCategorySelect(categoryId: number): void {
+    // переходим на страницу блюд для данной категории.
+  }
+
 }

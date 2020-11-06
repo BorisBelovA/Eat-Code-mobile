@@ -1,6 +1,6 @@
 <ion-slides [options]="sliderOptions">
   <ion-slide *ngFor="let item of categories">
-    <ion-item lines="none">
+    <ion-item lines="none" (click)="onCategorySelect(item.id)">
       <ion-grid class="ion-justify-content-center ion-no-padding">
         <ion-row>
           <ion-col size="12">
