@@ -1,11 +1,29 @@
 $container-height: 80px;
-$container-width: 150px;
+$container-width: 200px;
 
 .spinner-container {
   position: absolute;
-  top: calc(50vh - $container-height);
-  left: calc(50vw - $container-width);
+  top: calc(50vh - #{$container-height});
+  left: calc(50vw - #{$container-width / 2});
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: white;
+  z-index: 200;
+  height: $container-height;
+  width: $container-width;
+  border-radius: 5px;
+
+  -webkit-box-shadow: 0px 14px 28px -1px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 14px 28px -1px rgba(0,0,0,0.57);
+  box-shadow: 0px 14px 28px -1px rgba(0,0,0,0.57);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba($color: #000000, $alpha: 0.3);
 }

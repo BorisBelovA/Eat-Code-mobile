@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { LoadingIndicatorModule } from 'src/components/loading-indicator/loading-indicator.module';
+import { MenuListComponent } from './menu-list/menu-list.component';
 
 import { MenuComponent } from './menu.component';
 
 
 @NgModule({
-  declarations: [MenuComponent],
+  declarations: [MenuComponent, MenuListComponent],
   imports: [
     CommonModule,
     FormsModule,
