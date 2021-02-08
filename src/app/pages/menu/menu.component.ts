@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Meal } from 'models';
+import { MealsApiService } from '../../services/api/meals-api.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -7,28 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  public meals$ = this.mealsApiService.getMealsByRestaurant();
 
-  ngOnInit() {}
+  constructor(
+    private mealsApiService: MealsApiService
+  ) { }
 
-  public listCollapsed = false;
-
-  public firstList = {
-    collapsed: false,
-    items: [
-      'Первое вкусное блюдо',
-      'Второе вкусное блюдо',
-      'Третье вкусное блюдо',
-      'Четвертое вкусное блюдо'
-    ]
+  ngOnInit() {
+    this.meals$.subscribe();
   }
-
-  public swiped(): void {
-    console.log('Я добавился в корзину :)')
-  }
-
-  public removeFromCart(): void {
-    console.log('Я удалился из корзины')
-  }
-
 }

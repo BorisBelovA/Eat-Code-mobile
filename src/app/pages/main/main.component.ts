@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AnimationController } from '@ionic/angular';
 import { CategoryService } from 'src/app/services/category.service';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-main',
@@ -11,10 +12,13 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   constructor(
     private animationCtrl: AnimationController,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private locationService: LocationService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.locationService.getCurrentLocation();
+  }
 
   public ngAfterViewInit(): void {
     // const animation = this.animationCtrl.create()

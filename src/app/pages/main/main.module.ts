@@ -7,7 +7,7 @@ import { CategoryItemModule } from 'src/components/category-item/category-item.m
 import { RecommendationsSliderModule } from 'src/components/recommendations-slider/recommendations-slider.module';
 
 import { MainComponent } from './main.component';
-
+import { LocationService } from '../../services/location.service';
 
 @NgModule({
   declarations: [MainComponent],
@@ -19,7 +19,7 @@ import { MainComponent } from './main.component';
     RecommendationsSliderModule,
     CategoryItemModule
   ],
-  providers: [],
+  providers: [ LocationService ],
   exports: [MainComponent]
 })
 export class MainModule { }

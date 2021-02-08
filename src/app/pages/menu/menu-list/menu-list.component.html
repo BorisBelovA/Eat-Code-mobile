@@ -1,0 +1,39 @@
+<ion-list>
+  <ion-list-header lines="inset">
+    <ion-label>ДжонДжоли</ion-label>
+    <ion-button *ngIf="listCollapsed" (click)="listCollapsed = false">Показать блюда</ion-button>
+    <ion-button *ngIf="!listCollapsed" (click)="listCollapsed = true">Скрыть все</ion-button>
+  </ion-list-header>
+
+  <ng-container *ngIf="!listCollapsed">
+    <ion-item-sliding *ngFor="let item of items" icon-only>
+
+      <ion-item-options side="start" (ionSwipe)="removeFromCart()">
+        <ion-item-option color="danger" [disabled]="true" expandable>
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img [src]="item.image">
+        </ion-thumbnail>
+        <ion-label>{{ item.name }}</ion-label>
+        <span>{{ item.price }}</span>
+      </ion-item>
+
+      <ion-item-options side="end" (ionSwipe)="swiped()">
+        <ion-item-option color="light">
+          <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="primary" expandable>
+          <ion-icon 
+            slot="icon-only"
+            name="cart-outline"
+            [style.color]="'#fff'"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ng-container>
+</ion-list>
