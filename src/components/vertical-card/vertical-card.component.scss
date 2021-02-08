@@ -1,12 +1,18 @@
-.meal-photo {
-    border-radius: 15px;
-}
+// .meal-photo {
+//     border-radius: 15px;
+// }
 
-.meal-title, .meal-rating {
-    margin: 0;
-}
+// .meal-title, .meal-rating {
+//     margin: 0;
+// }
 
-.meal-container {
-    border: 1px solid #C4C4C4;
-    border-radius: 15px;
+// .meal-container {
+//     border: 1px solid #C4C4C4;
+//     border-radius: 15px;
+// }
+
+::ng-deep {
+    ion-icon {
+        font-size: 20px;
+    }
 }
