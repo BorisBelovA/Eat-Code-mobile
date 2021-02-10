@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Meal } from '../../models/models';
 
 @Injectable({
@@ -39,6 +40,8 @@ export class MealsApiService {
         nutrition: [255, 135.25, 548.5]
       }
     ]
-    return of(meals);
+    return of(meals).pipe(
+      delay(1000)
+    );
   }
 }

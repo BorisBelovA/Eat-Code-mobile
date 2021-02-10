@@ -1,9 +1,9 @@
 import * as CategoriesReducer from './categories/categories.reducer';
 import * as SystemReducer from './system/system.reducer';
 
-export const AppState = {
-    categories: CategoriesReducer.initialState,
-    system: SystemReducer.initialState 
+export type AppState = {
+    categories: CategoriesReducer.CategoriesState,
+    system: SystemReducer.SystemState 
 }
 
 export const reducer = {

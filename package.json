@@ -7,6 +7,7 @@
     "ng": "ng",
     "start": "ng serve",
     "emulate": "ionic cordova emulate android --target=Pixel_API_29",
+    "android": "ionic cordova run android -l",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,6 +21,7 @@
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
+    "@ionic-native/ble": "^5.31.1",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
@@ -27,6 +29,8 @@
     "@ngrx/store": "^10.0.1",
     "@ngrx/store-devtools": "^10.0.1",
     "cordova-android": "8.1.0",
+    "cordova-plugin-ble-central": "^1.3.1",
+    "cordova-plugin-uid": "^1.3.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
@@ -72,7 +76,9 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-ble-central": {},
+      "cordova-plugin-dreamover-uid": {}
     },
     "platforms": [
       "android"

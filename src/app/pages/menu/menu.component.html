@@ -8,4 +8,4 @@
   <app-menu-list [items]="meals$ | async"></app-menu-list>
 </ion-content>
 
-<app-loading-indicator></app-loading-indicator>
+<app-loading-indicator *ngIf="(meals$ | async) === null"></app-loading-indicator>

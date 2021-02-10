@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { AnimationController } from '@ionic/angular';
+import { Store } from '@ngrx/store';
 import { CategoryService } from 'src/app/services/category.service';
 import { LocationService } from 'src/app/services/location.service';
-
+import { AppState } from '../../store/reducer';
+import * as SystemActions from '../../store/system/system.actions';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -11,23 +12,26 @@ import { LocationService } from 'src/app/services/location.service';
 export class MainComponent implements OnInit, AfterViewInit {
 
   constructor(
-    private animationCtrl: AnimationController,
     private categoryService: CategoryService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private store$: Store<AppState>
   ) { }
 
+
+  public source$ = this.locationService.startBeaconsScan();
+
+  public globalPosition$ = this.locationService.getGlobalPosition();
+
   ngOnInit() {
-    this.locationService.getCurrentLocation();
+    this.globalPosition$.subscribe(location => {
+      this.store$.dispatch(SystemActions.setGlobalLocation({ location }))
+    });
+
+    this.source$.subscribe(res => console.log(res))
+
   }
 
-  public ngAfterViewInit(): void {
-    // const animation = this.animationCtrl.create()
-    // .addElement(document.querySelector('[data-id="main-page"]'))
-    // .duration(100)
-    // .fromTo('transform', 'translateX(100%)', 'translateX(0)');
-
-    // animation.play();
-  }
+  public ngAfterViewInit(): void {}
 
   public onCategorySelect(categoryId: number): void {
     // переходим на страницу блюд для данной категории.

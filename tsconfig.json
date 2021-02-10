@@ -17,6 +17,7 @@
     ],
     "paths": {
       "models": ["./src/app/models/models"],
+      "dto": ["./src/app/dto/dto"],
       "images": ["./src/assets/images"]
     }
   },

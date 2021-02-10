@@ -9,6 +9,8 @@ import { RecommendationsSliderModule } from 'src/components/recommendations-slid
 import { MainComponent } from './main.component';
 import { LocationService } from '../../services/location.service';
 
+import { BLE } from '@ionic-native/ble/ngx';
+
 @NgModule({
   declarations: [MainComponent],
   imports: [
@@ -19,7 +21,7 @@ import { LocationService } from '../../services/location.service';
     RecommendationsSliderModule,
     CategoryItemModule
   ],
-  providers: [ LocationService ],
+  providers: [ LocationService, BLE],
   exports: [MainComponent]
 })
 export class MainModule { }
