@@ -1,0 +1,15 @@
+.wizard-steps {
+  text-align: center;
+
+  &__step-title, &__steps-counter {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}

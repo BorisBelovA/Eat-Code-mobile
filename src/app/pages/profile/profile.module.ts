@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProfileComponent } from './profile.component';
 import { RouterModule } from '@angular/router';
+import { ReservationWizardComponent } from './components/reservation-wizard/reservation-wizard.component';
 
 @NgModule({
   imports: [ 
@@ -14,7 +15,7 @@ import { RouterModule } from '@angular/router';
     IonicModule,
     RouterModule.forChild([{ path: '', component: ProfileComponent }])
   ],
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, ReservationWizardComponent],
   exports: [ProfileComponent]
 })
 export class ProfileComponentModule {}

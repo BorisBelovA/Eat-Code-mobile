@@ -18,11 +18,6 @@
     height: 1px;
     border: 0.5px solid black;
   }
-
-  &__content {
-    padding: 1rem 0.5rem;
-  }
-
 }
 
 .order-card {
@@ -33,8 +28,6 @@
   -webkit-box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
-
-  // padding: 0.5rem;
 
   display: flex;
   flex-direction: column;
@@ -53,12 +46,10 @@
     font-size: 14px;
     line-height: 1.5rem;
   }
+}
 
-  &__order-silde {
-    padding: 0.5rem;
+:host::ng-deep {
+  .order-card__order-slide {
+    padding: 1rem 0.5rem;
   }
-
-  // &__order-slide + &__order-slide {
-  //   margin-left: 8px;
-  // }
 }
