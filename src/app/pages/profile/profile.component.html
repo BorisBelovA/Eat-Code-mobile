@@ -20,14 +20,14 @@
           <div class="profile-section__content">
             <ion-slides [options]="ordersSlider">
 
-              <ion-slide *ngFor="let order of orders" class="order-card__order-slide">
-                <div class="order-card">
-                  <div class="order-card__id">№ {{ order.id }}</div>
-                  <div class="order-card__info">
+              <ion-slide *ngFor="let order of orders" class="card__order-slide">
+                <div class="card">
+                  <div class="card__id">№ {{ order.id }}</div>
+                  <div class="card__info">
                     <span>Дата заказа: {{ order.date }}</span>
                     <span>Общая сумма: {{ order.totalAmount }}</span>
                   </div>
-                  <div class="order-card__goods-list" style="width: 100%;">
+                  <div class="card__goods-list" style="width: 100%;">
                     <ion-slides [options]="sliderOptions">
                       <ion-slide *ngFor="let meal of order.meals">
                         <ion-item lines="none">
@@ -52,11 +52,33 @@
           <div class="profile-section__content">
             <ng-container *ngIf="reservations.length === 0">
               <div>У вас нету активных бронирований</div>
-              <ion-button expand="block" (click)="reserve()">Зарезервировать столик</ion-button>
             </ng-container>
+
+            <ng-container *ngIf="reservations.length > 0">
+              <ion-slides [options]="ordersSlider">
+
+                <ion-slide *ngFor="let reservation of reservations" class="card__order-slide">
+                  <div class="card">
+                    <div class="card__id">Ресторан: {{ reservation.restaurant.name }}</div>
+                    <div class="card__info">
+                      <span>Адрес ресторана: {{ reservation.restaurant.address }}</span>
+                      <span>Дата посещения: {{ reservation.date | dateTransform}}</span>
+                    </div>
+                    <div class="card__actions" >
+                      <ion-button expand="full" color="danger" fill="outline" (click)="removeReservation(reservation.id)">Удалить</ion-button>
+                    </div>
+                  </div>
+                </ion-slide>
+              </ion-slides>
+            </ng-container>
+            <ion-button expand="block" (click)="reserve()">Зарезервировать столик</ion-button>
           </div>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ng-container *ngIf="loading">
+  <app-loading-indicator></app-loading-indicator>
+</ng-container>

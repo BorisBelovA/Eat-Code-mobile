@@ -12,7 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from './store/reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,6 +23,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
     BrowserAnimationsModule,
     StoreModule.forRoot(reducer),
     StoreDevtoolsModule.instrument({}),
+    HttpClientModule
   ],
   providers: [
     StatusBar,

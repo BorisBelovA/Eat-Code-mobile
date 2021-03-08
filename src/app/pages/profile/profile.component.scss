@@ -20,10 +20,11 @@
   }
 }
 
-.order-card {
+.card {
   width: 100%;
   border: 2px solid var(--medium, #92949c);
   border-radius: 4px;
+  padding: 0.5rem;
 
   -webkit-box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 2px 2px 4px 0px rgba(34, 60, 80, 0.2);
@@ -41,15 +42,19 @@
   &__info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-
+    // align-items: flex-start;
+    text-align: left;
     font-size: 14px;
     line-height: 1.5rem;
+  }
+
+  &__actions {
+    width: 100%;
   }
 }
 
 :host::ng-deep {
-  .order-card__order-slide {
+  .card__order-slide {
     padding: 1rem 0.5rem;
   }
 }

@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { of } from 'rxjs';
+import * as models from 'models';
+import { Store } from '@ngrx/store';
+import { of, Subscription } from 'rxjs';
+import { AppState } from 'src/app/store/reducer';
+import * as ProfileSelectors from './profile.selectors';
 import { ReservationWizardComponent } from './components/reservation-wizard/reservation-wizard.component';
+import { RestaurantApiService } from 'src/app/services/api/restaurant-api.service';
+import { tap } from 'rxjs/operators';
+import { ReservationsApiService } from 'src/app/services/api/reservations-api.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,19 +21,19 @@ export class ProfileComponent implements OnInit {
     name: 'Иванов Иван Иванович'
   }
 
-  public clientName$ = of(this.client.name)
+  public clientName$ = of(this.client.name);
 
   public sliderOptions = {
     initialSlide: 0,
     speed: 400,
     slidesPerView: 4,
-  }
+  };
 
   public ordersSlider = {
     initialSlide: 0,
     speed: 400,
     slidesPerView: 1,
-  }
+  };
 
 
   public orders = [
@@ -66,23 +73,57 @@ export class ProfileComponent implements OnInit {
         {id: 1, name: '12321'},
       ]
     },
-  ]
+  ];
 
-  public reservations = [];
+  public reservations: models.Reservation[] = [];
 
+  public globalPosition: models.GlobalLocation | null = null;
+
+  public reservationWizardSubscriptions = new Subscription();
+
+  public loading = false;
 
   constructor(
-    public modalController: ModalController
+    public modalController: ModalController,
+    private restaurantApi: RestaurantApiService,
+    private reservationsApi: ReservationsApiService,
+    private store$: Store<AppState>
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getReservations();
+  }
+
+  public getReservations(): void {
+    this.loading = true;
+    this.reservationsApi.getAll().pipe(
+      tap(reservatios => this.reservations = reservatios)
+    ).subscribe({
+      next: () => this.loading = false
+    });
+  }
 
   public async reserve(): Promise<void> {
+    this.reservationWizardSubscriptions.add(
+      this.store$.select(ProfileSelectors.selectGlobalPosition).subscribe(
+        globalPosition => this.globalPosition = globalPosition
+      )
+    );
     const modal = await this.modalController.create({
       component: ReservationWizardComponent,
-      cssClass: 'my-custom-class'
+      cssClass: 'my-custom-class',
+      componentProps: {
+        globalPosition: this.globalPosition
+      },
     });
+
+    modal.onDidDismiss().then(() => this.getReservations());
+
     return await modal.present();
   }
 
+  public removeReservation(id: number): void {
+    this.loading = true;
+    this.reservationsApi.removeReservation(id).subscribe(() => this.getReservations());
+  }
 }

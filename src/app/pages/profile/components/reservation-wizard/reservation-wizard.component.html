@@ -2,25 +2,57 @@
   <ion-toolbar>
     <ion-title>Создание бронирования</ion-title>
     <ion-buttons slot="end">
-      <ion-button onclick="dismissModal()">Закрыть</ion-button>
+      <ion-button (click)="dismissModal()">Закрыть</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-row>
-    <ion-col size="12">
-      <div class="reservation-wizard">
+  <ion-row class="h-100">
+    <ion-col size="12" class="h-100">
+      <div class="reservation-wizard h-100">
         <div class="wizard-steps">
           <div class="wizard-steps__steps-counter">
-            Шаг 1 из 4
+            Шаг {{ stepNumber }} из {{ wizardSteps.length }}
           </div>
           <div class="wizard-steps__step-title">
-            Выберите ресторан на карте
+            {{ currentStep.title }}
           </div>
         </div>
-        <div class="step-content">
-          <div class="step-content__map">
-            <div #mapViewEl id="viewDiv"></div>
+        <div class="step-content h-100" [class.hidden]="currentStep.step !== 'Map'">
+            <div class="step-content__map h-100">
+              <div #mapViewEl id="viewDiv"></div>
+            </div>
+            <ion-button expand="block" [disabled]="!selectedRestaurantId" (click)="next()">Дальше</ion-button>
+        </div>
+
+        <div class="step-content h-100"  [class.hidden]="currentStep.step !== 'DateTime'">
+          <div class="h-100">
+            <ion-item style="margin-top: 1rem;">
+              <ion-datetime displayFormat="DD.MMMM.YYYY, HH:mm" placeholder="Выбрать" [(ngModel)]="selectedDate"></ion-datetime>
+            </ion-item>
+            <ion-button expand="block" [disabled]="!selectedDate" (click)="next()">Дальше</ion-button>
+            <ion-button expand="block" color="secondary" (click)="back()">Назад</ion-button>
+          </div>
+        </div>
+
+        <div class="step-content h-100"  [class.hidden]="currentStep.step !== 'Table'">
+          <div class="h-100">
+            <ion-item style="margin-top: 1rem;">
+              <ion-label>Столик у окна</ion-label>
+              <ion-button expand="block" (click)="selectedTableId = 1">Выбрать</ion-button>
+            </ion-item>
+            
+            <ion-item style="margin-top: 1rem;">
+              <ion-label>Столик у прохода</ion-label>
+              <ion-button expand="block" (click)="selectedTableId = 2">Выбрать</ion-button>
+            </ion-item>
+            
+            <ion-item style="margin-top: 1rem;">
+              <ion-label>Столик у в середине зала</ion-label>
+              <ion-button expand="block" (click)="selectedTableId = 3">Выбрать</ion-button>
+            </ion-item>
+            <ion-button expand="block" [disabled]="!selectedTableId" (click)="submit()">Зарезервировать</ion-button>
+            <ion-button expand="block" color="secondary" (click)="back()">Назад</ion-button>
           </div>
         </div>
       </div>
