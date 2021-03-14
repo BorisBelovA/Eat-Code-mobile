@@ -25,10 +25,10 @@ export class LocationService {
           obs.complete();
         },
         error => {
-          obs.error(error)
+          obs.error(error);
         }
-      )
-    })
+      );
+    });
   }
 
 

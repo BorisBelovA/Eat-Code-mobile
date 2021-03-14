@@ -10,7 +10,7 @@
         <div class="global-position-selector__map h-100">
           <div #mapViewEl id="viewDiv"></div>
         </div>
-        <ion-button expand="block">Подтвердить</ion-button>
+        <ion-button expand="block" [disabled]="!position" (click)="accept()">Подтвердить</ion-button>
       </div>
     </ion-col>
   </ion-row>

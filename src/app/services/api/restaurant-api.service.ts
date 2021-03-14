@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import * as dto from 'dto';
 import * as models from 'models';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +14,13 @@ export class RestaurantApiService {
     private http: HttpClient
   ) { }
 
-  public getNearestRestaurants(): any {
-
+  public getNearestRestaurants(location: models.GlobalLocation): Observable<models.Restaurant[]> {
+    return this.http.post<dto.HttpResponse<dto.Restaurant[]>>('https://eat-code-web-api.herokuapp.com/api/restaurants/get-nearest', {
+      longitude: location.longitude,
+      latitude: location.latitude
+    }).pipe(
+      map(response => response.items.map(r => this.mapToModel(r)))
+    )
   }
 
   public getRestaurants(): Observable<models.Restaurant[]> {

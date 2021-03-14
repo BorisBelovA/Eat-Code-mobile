@@ -6,6 +6,8 @@ import { LocationService } from 'src/app/services/location.service';
 import { AppState } from '../../store/reducer';
 import * as SystemActions from '../../store/system/system.actions';
 import { GlobalPositionSelectorComponent } from './components/global-position-selector/global-position-selector.component';
+import * as models from 'models';
+import * as RestaurantActions from '../../store/restaurants/restaurants.actions';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -23,11 +25,19 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   public source$ = this.locationService.startBeaconsScan();
 
-  public globalPosition$ = this.locationService.getGlobalPosition();
+  public locationDefined = false;
 
   ngOnInit() {
-    this.globalPosition$.subscribe(location => {
-      this.store$.dispatch(SystemActions.setGlobalLocation({ location }))
+    this.locationService.getGlobalPosition().subscribe({
+      next: (location) => {
+        this.locationDefined = true;
+        this.store$.dispatch(SystemActions.setGlobalLocation({ location }));
+        this.store$.dispatch(RestaurantActions.findNearest({ location }));
+      },
+      error: (err) => {
+        console.error('Не удалось определить местоположение');
+        this.selectPos();
+      }
     });
     this.source$.subscribe(res => console.log(res))
   }
@@ -38,8 +48,11 @@ export class MainComponent implements OnInit, AfterViewInit {
       cssClass: 'my-custom-class',
     });
 
-    return await modal.present();
+    modal.onDidDismiss().then(
+      (response: {data: models.GlobalLocation}) => this.store$.dispatch(SystemActions.setGlobalLocation({ location: response.data }))
+    );
 
+    return await modal.present();
   }
 
   public ngAfterViewInit(): void {}

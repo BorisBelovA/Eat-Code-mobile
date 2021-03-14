@@ -1,5 +1,4 @@
-<!-- Если определили глобальное местоположение, то начни показывать меню -->
-<ion-content>
+<ion-content *ngIf="locationDefined">
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <h3>Рекомендовано для вас</h3>
@@ -20,8 +19,6 @@
         </app-category-item>
       </ion-col>
     </ion-row>
-
-    <ion-button (click)="selectPos()">Выбери местоположение</ion-button>
     
     <ion-row class="ion-justify-content-center">
       <h3>Популярные рестораны</h3>

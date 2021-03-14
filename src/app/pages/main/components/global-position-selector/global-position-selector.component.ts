@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { RestaurantApiService } from 'src/app/services/api/restaurant-api.service';
 import { MapService } from 'src/app/services/map.service';
 import esri = __esri;
@@ -12,8 +13,14 @@ export class GlobalPositionSelectorComponent implements OnInit {
 
   constructor(
     private mapService: MapService,
-    private restaurantsApi: RestaurantApiService
+    private restaurantsApi: RestaurantApiService,
+    private modalControl: ModalController
   ) { }
+
+  public position: {
+    longitude: number;
+    latitude: number
+  } | null = null;
 
   ngOnInit() {
     this.restaurantsApi.getRestaurants().subscribe({
@@ -29,18 +36,22 @@ export class GlobalPositionSelectorComponent implements OnInit {
         this.clickCallback
         );
       }
-    })
+    });
   }
 
   public clickCallback = (event: esri.MapViewClickEvent, view: esri.MapView) => {
     view.hitTest(event).then((response) => {
       if (response.results.length) {
-        console.log('awdawd')
-        // const graphic = response.results[0].graphic;
-        // this.selectedRestaurantId = graphic.attributes.id;
-        // console.log(graphic, this.selectedRestaurantId);
+        this.position = {
+          longitude: response.results[0].mapPoint.longitude,
+          latitude: response.results[0].mapPoint.latitude
+        };
       }
     });
+  }
+
+  public accept(): void {
+    this.modalControl.dismiss(this.position);
   }
 
 }
