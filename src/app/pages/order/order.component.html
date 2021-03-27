@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Заказ
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid class="h-100 d-flex flex-column">
+    <ng-container *ngIf="anyItemsInOrder$ | async then order; else emptyOrder"></ng-container>
+  </ion-grid>
+</ion-content>
+
+<ng-template #order>
+  <ion-row class="ordered-meals">
+    <ion-col size="12">
+      <div class="ordered-meals__title">{{ amountOfItems$ | async }} позиций на сумму {{ totalCost$ | async }}₽</div>
+      <div class="ordered-meals__meal" *ngFor="let meal of orderedMeals$ | async">
+        <div class="meal-card">
+          <div class="meal-card__image"></div>
+          <div class="meal-card__info">
+            <div class="meal-card__title">{{ meal.name }}</div>
+            <div class="meal-card__description"> {{ meal.description }}</div>
+          </div>
+        </div>
+        <div class="separator"></div>
+        <div class="price-container">
+          <div class="price-container__price">{{ meal.price }}₽</div>
+          <div class="price-container__amount-picker">
+            <div class="control-btn"><ion-icon name="add-outline" (click)="addMealToCart(meal)"></ion-icon></div>
+            <div class="counter">{{ meal.amount }}</div>
+            <div class="control-btn"><ion-icon name="remove-outline" (click)="removeOneMealFromCart(meal)"></ion-icon></div>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <ion-button expand="full">Оформить заказ</ion-button>
+    </ion-col>
+  </ion-row>
+</ng-template>
+
+<ng-template #emptyOrder>
+  Вы еще не заказали ни одного блюда
+</ng-template>

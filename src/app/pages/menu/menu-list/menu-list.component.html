@@ -8,7 +8,7 @@
   <ng-container *ngIf="!listCollapsed">
     <ion-item-sliding *ngFor="let item of items" icon-only>
 
-      <ion-item-options side="start" (ionSwipe)="removeFromCart()">
+      <ion-item-options side="start" (ionSwipe)="remove(item)">
         <ion-item-option color="danger" [disabled]="true" expandable>
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-item-option>
@@ -22,11 +22,11 @@
         <span>{{ item.price }}</span>
       </ion-item>
 
-      <ion-item-options side="end" (ionSwipe)="swiped()">
+      <ion-item-options side="end" (ionSwipe)="toCart(item)">
         <ion-item-option color="light">
           <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="primary" expandable>
+        <ion-item-option color="primary" expandable (click)='toCart(item)'>
           <ion-icon 
             slot="icon-only"
             name="cart-outline"

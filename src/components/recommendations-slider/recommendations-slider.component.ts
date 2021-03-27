@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import * as models from 'models';
 
 @Component({
   selector: 'app-recommendations-slider',
   templateUrl: './recommendations-slider.component.html',
   styleUrls: ['./recommendations-slider.component.scss'],
 })
-export class RecommendationsSliderComponent implements OnInit {
+export class RecommendationsSliderComponent {
 
   public slideOpts = {
     initialSlide: 0,
@@ -14,13 +15,17 @@ export class RecommendationsSliderComponent implements OnInit {
   };
 
   @Input()
-  public items: any[] = [];
+  public items: models.Meal[] | null = null;
 
   @Input()
   public itemType: 'verticalCard' | 'block' = 'verticalCard';
-  
+
+  @Output()
+  public addToCart = new EventEmitter<models.Meal>();
+
   constructor() { }
 
-  ngOnInit() {}
-
+  public add(item: models.Meal): void {
+    this.addToCart.emit(item);
+  }
 }

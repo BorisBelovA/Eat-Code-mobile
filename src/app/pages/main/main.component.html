@@ -5,7 +5,10 @@
     </ion-row>
     <ion-row class="ion-margin-bottom">
       <ion-col [size]="12">
-        <app-recommendations-slider></app-recommendations-slider>
+        <app-recommendations-slider
+          [items]="recommendations"
+          (addToCart)="addToCart($event)"
+        ></app-recommendations-slider>
       </ion-col>
     </ion-row>
 

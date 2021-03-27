@@ -5,7 +5,11 @@
   <ion-button class="ion-margin-horizontal" expand="block">Фильтры</ion-button>
 </ion-toolbar>
 <ion-content>
-  <app-menu-list [items]="meals$ | async"></app-menu-list>
+  <app-menu-list
+    [items]="meals$ | async"
+    (addToCart)="addToCart($event)"
+    (removeFromCart)="removeFromCart($event)"
+  ></app-menu-list>
 </ion-content>
 
 <app-loading-indicator *ngIf="(meals$ | async) === null"></app-loading-indicator>

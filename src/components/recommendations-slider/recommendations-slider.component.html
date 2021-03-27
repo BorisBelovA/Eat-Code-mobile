@@ -1,16 +1,10 @@
 <ng-container *ngIf="itemType === 'verticalCard'; else blocksSlider">
   <ion-slides [options]="slideOpts">
-    <ion-slide>
-      <app-vertical-card></app-vertical-card>
-    </ion-slide>
-    <ion-slide>
-      <app-vertical-card></app-vertical-card>
-    </ion-slide>
-    <ion-slide>
-      <app-vertical-card></app-vertical-card>
-    </ion-slide>
-    <ion-slide>
-      <app-vertical-card></app-vertical-card>
+    <ion-slide *ngFor="let item of items">
+      <app-vertical-card
+        [item]="item"
+        (addToCart)="add($event)"
+      ></app-vertical-card>
     </ion-slide>
   </ion-slides>
 </ng-container>

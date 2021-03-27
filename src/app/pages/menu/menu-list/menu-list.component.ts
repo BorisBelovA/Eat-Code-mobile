@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Meal } from 'models';
 
 @Component({
@@ -11,18 +11,26 @@ export class MenuListComponent implements OnInit {
   @Input()
   public items: Meal[];
 
+  @Output()
+  public addToCart: EventEmitter<Meal> = new EventEmitter<Meal>()
+
+  @Output()
+  public removeFromCart: EventEmitter<Meal> = new EventEmitter<Meal>();  
+
   constructor() { }
 
   ngOnInit() {}
 
   public listCollapsed = false;
 
-  public swiped(): void {
-    console.log('Я добавился в корзину :)')
+  public toCart(meal: Meal): void {
+    console.log('Я добавился в корзину :)', meal)
+    this.addToCart.emit(meal)
   }
 
-  public removeFromCart(): void {
+  public remove(item: Meal): void {
     console.log('Я удалился из корзины')
+    this.removeFromCart.emit(item);
   }
 
 }
