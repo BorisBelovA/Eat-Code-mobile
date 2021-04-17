@@ -16,10 +16,10 @@
 
       <ion-item>
         <ion-thumbnail slot="start">
-          <img [src]="item.image">
+          <img [src]="'../../../../assets/images/meal-placeholder/' + item.image">
         </ion-thumbnail>
         <ion-label>{{ item.name }}</ion-label>
-        <span>{{ item.price }}</span>
+        <span>{{ item.price }}₽</span>
       </ion-item>
 
       <ion-item-options side="end" (ionSwipe)="toCart(item)">

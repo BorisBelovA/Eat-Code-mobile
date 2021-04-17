@@ -5,6 +5,9 @@ import * as models from 'models';
 import { AppState } from 'src/app/store/reducer';
 import { MealsApiService } from '../../services/api/meals-api.service';
 import * as OrderActions from '../../store/order/order.actions';
+import * as MenuActions from '../../store/menu/menu.actions';
+import * as RestaurantActions from '../../store/restaurants/restaurants.actions';
+import * as MenuSelectors from '../../store/menu/menu.selectors';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +16,8 @@ import * as OrderActions from '../../store/order/order.actions';
 })
 export class MenuComponent implements OnInit {
 
-  public meals$ = this.mealsApiService.getMealsByRestaurant();
+  public meals$ = this.store$.select(MenuSelectors.selectMeals);
+  public loading$ = this.store$.select(MenuSelectors.selectIsLoading);
 
   constructor(
     private mealsApiService: MealsApiService,
@@ -22,7 +26,7 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.meals$.subscribe();
+    this.store$.dispatch(RestaurantActions.loadMealsFromNearbyRestaurants());
   }
 
   public addToCart(meal: models.Meal): void {

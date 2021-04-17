@@ -72,8 +72,8 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.locationService.getGlobalPosition().subscribe({
       next: (location) => {
         this.locationDefined = true;
-        this.store$.dispatch(SystemActions.setGlobalLocation({ location }));
-        this.store$.dispatch(RestaurantActions.findNearest({ location }));
+        this.store$.dispatch(SystemActions.setGlobalLocation({ location: { longitude: 37.760513, latitude: 55.6629 } }));
+        this.store$.dispatch(RestaurantActions.findNearest({ location: { longitude: 37.760513, latitude: 55.6629 }  }));
       },
       error: (err) => {
         console.error('Не удалось определить местоположение');

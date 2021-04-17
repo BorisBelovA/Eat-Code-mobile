@@ -1,47 +1,44 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import { Meal } from '../../models/models';
+import * as dto from 'dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealsApiService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  public getMealsByRestaurant(): Observable<Meal[]> {
-    const meals: Meal[] = [
-      {
-        id: 1,
-        name: 'Первое вкусное блюдо',
-        image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==',
-        price: 235.58,
-        rating: 4.5,
-        description: 'Описание первого блюда',
-        nutrition: [255, 135.25, 548.5]
-      },
-      {
-        id: 2,
-        name: 'Второе вкусное блюдо',
-        image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==',
-        price: 287.58,
-        rating: 4.0,
-        description: 'Описание второго блюда',
-        nutrition: [255, 135.25, 548.5]
-      },
-      {
-        id: 3,
-        name: 'Третье вкусное блюдо',
-        image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==',
-        price: 302.69,
-        rating: 4.4,
-        description: 'Описание третьего блюда',
-        nutrition: [255, 135.25, 548.5]
+  public getMealsByRestaurantIds(ids: number[]): Observable<Meal[]> {
+    return this.http.get<dto.HttpResponse<dto.Meal[]>>('https://eat-code-web-api.herokuapp.com/api/meals/get-by-restaurant-id',
+    {
+      params: {
+        ids: ids.join(';#')
       }
-    ]
-    return of(meals).pipe(
-      delay(1000)
+    }).pipe(
+      map(i => i.items.map(j => ({
+        id: j.id,
+        name: j.name,
+        image: j.photo,
+        price: j.price,
+        rating: j.rating,
+        description: j.description,
+        restaurantId: j.restaurantId,
+        categoryId: j.categoryId,
+        nutrition: [
+          j.nutrition.calories,
+          j.nutrition.totalFat,
+          j.nutrition.sugar,
+          j.nutrition.sodium,
+          j.nutrition.protein,
+          j.nutrition.saturatedFat
+        ]
+      })))
     );
   }
 }

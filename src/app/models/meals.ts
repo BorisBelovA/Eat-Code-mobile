@@ -6,4 +6,6 @@ export interface Meal {
   rating: number;
   description: string;
   nutrition: number[];
+  restaurantId: number;
+  categoryId: number;
 }
