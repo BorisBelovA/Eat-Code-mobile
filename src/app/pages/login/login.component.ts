@@ -57,11 +57,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     this.authService.login('anna', '111').subscribe(
       result => {
-        if(result.assepted === false) {
-          console.log('Не смогли авторищоваться')
+        if (result.assepted === false) {
+          alert('Не смогли авторизоваться');
+        } else {
+          this.router.navigate(['tabs']);
         }
       }
     )
-    // this.router.navigate(['tabs'])
   }
 }

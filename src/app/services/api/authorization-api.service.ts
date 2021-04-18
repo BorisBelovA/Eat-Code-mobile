@@ -15,9 +15,9 @@ export class AuthorizationApiService {
     return this.http.get<{assepted: boolean, client?: number}>('http://localhost:9098/bmstuapi/client/login',
     {
       params: {
-        login, 
+        login,
         password
       }
-    })
+    });
   }
 }
