@@ -5,7 +5,7 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "emulate": "ionic cordova emulate android --target=Pixel_API_29",
     "android": "ionic cordova run android -l",
     "copy": "ncp ./node_modules/@arcgis/core/assets ./src/assets",

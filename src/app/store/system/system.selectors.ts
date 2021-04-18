@@ -9,3 +9,8 @@ export const selectGlobalPosition = createSelector(
   selectSystemState,
   (state: SystemState) => state.globalLocation
 );
+
+export const selectUserId = createSelector(
+  selectSystemState,
+  state => state.userId
+);

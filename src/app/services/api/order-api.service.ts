@@ -13,9 +13,11 @@ export class OrderApiService {
 
   public createOrder(
     clientId: number,
-    mealIds: number,
+    mealIds: number[],
     totalPrice: number
   ): Observable<any> {
-    return
+    return this.http.get('http://localhost:9098/bmstuapi/order/add', {
+      // params
+    })
   }
 }

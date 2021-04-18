@@ -4,7 +4,10 @@ import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { AppState } from '../reducer';
 import { Store } from '@ngrx/store';
 import * as OrderActions from './order.actions';
-import * as OrderSelectors from './order.selectors'
+import * as OrderSelectors from './order.selectors';
+import * as SystemSelectors from '../system/system.selectors';
+import { OrderApiService } from 'src/app/services/api/order-api.service';
+
 @Injectable()
 export class OrderEffects {
 
@@ -13,14 +16,17 @@ export class OrderEffects {
     ofType(OrderActions.createOrder),
     withLatestFrom(this.store$),
     switchMap(([action, state]) => {
-      const orderedMeals = OrderSelectors.selectOrderedMeals(state)
-      console.log(orderedMeals)
-      return [];
+      const orderedMeals = OrderSelectors.selectOrderedMeals(state);
+      const ids = orderedMeals.map(i => i.id);
+      const totalPrice = orderedMeals.reduce((acc, curr) => acc + curr.price, 0);
+      const userId = SystemSelectors.selectUserId(state);
+      return this.ordersApi.createOrder(userId, ids, totalPrice);
     })
   )
 
   constructor(
     private actions$: Actions,
     private store$: Store<AppState>,
+    private ordersApi: OrderApiService
   ) { }
 }

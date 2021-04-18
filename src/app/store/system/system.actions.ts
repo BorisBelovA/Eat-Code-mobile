@@ -10,9 +10,15 @@ export const setGlobalLocation = createAction(
     props<{ location: GlobalLocation }>()
 )
 
+export const setUderId = createAction(
+    '[System] set userId',
+    props<{userId: number}>()
+);
+
 export const all = union({
     testAction,
-    setGlobalLocation
+    setGlobalLocation,
+    setUderId
 });
 
 export type SystemActions = typeof all;
