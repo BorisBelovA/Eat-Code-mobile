@@ -12,13 +12,15 @@ import { AuthorizationApiService } from 'src/app/services/api/authorization-api.
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
+  public login: string | null = null;
+  public password: string | null = null;
+
   @Output()
   public signIn = new EventEmitter();
 
   constructor(
     private animationCtrl: AnimationController,
     private router: Router,
-    private http: HttpClient,
     private authService: AuthorizationApiService
   ) { }
 
@@ -34,35 +36,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   public trySignIn() {
-    // this.signIn.emit();
-    // this.http.get('http://localhost:9098/bmstuapi/client/login', {
-    //   params: {
-    //     login: 'anna',
-    //     password: '111'
-    //   }
-    // }).pipe(
-    //   tap(res => console.log(res))
-    // ).subscribe()
-
-    // this.http.post('http://localhost:9098/bmstuapi/client/register', {
-    //   Login: 'anna',
-    //   Password: '111',
-    //   Name: 'Anna Seleznyova',
-    //   Phone: '89009998866',
-    //   Email: 'anna@mail.ru',
-    //   DOB: '21.03.1996'
-    // }).pipe(
-    //   tap(res => console.log(res))
-    // ).subscribe()
-
-    this.authService.login('anna', '111').subscribe(
-      result => {
-        if (result.assepted === false) {
-          alert('Не смогли авторизоваться');
-        } else {
-          this.router.navigate(['tabs']);
+    if (!this.login || !this.password) {
+      throw new Error('Заполните логин или пароль')
+    } else {
+      this.authService.login(this.login, this.password).subscribe(
+        result => {
+          if (result.assepted === false) {
+            alert('Не смогли авторизоваться');
+          } else {
+            this.router.navigate(['tabs']);
+          }
         }
-      }
-    )
+      )
+    }
   }
 }

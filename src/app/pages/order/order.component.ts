@@ -49,6 +49,9 @@ export class OrderComponent implements OnInit {
     this.store$.dispatch(OrderActions.decrementMeal({ meal }));
   }
 
+  public createOrder(): void {
+    this.store$.dispatch(OrderActions.createOrder())
+  }
 
   private transfromToMealsWithAmount(meals: models.Meal[]): MealWithAmount[] {
     const uniqueMealsIds = Array.from(new Set(meals.map(m => m.id)));
