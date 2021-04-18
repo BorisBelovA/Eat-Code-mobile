@@ -5,3 +5,10 @@
 .price-label {
     text-align: end;
 }
+
+.menu-item {
+    &__rating {
+        display: flex;
+        margin-top: 0.25rem;
+    }
+}

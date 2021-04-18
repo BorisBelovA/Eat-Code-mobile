@@ -28,9 +28,7 @@ export class RestaurantsEffects {
     ofType(RestaurantsActions.loadMealsFromNearbyRestaurants),
     withLatestFrom(this.store$),
     tap(() => this.store$.dispatch(MenuActions.setLoading({ loading: true }))),
-    switchMap(([action, state]) => this.mealsService.getMealsByRestaurantIds(
-      RestaurantsSelectors.selectNearbyRestaurants(state).map(i => i.id)
-    ).pipe(
+    switchMap(([action, state]) => this.mealsService.getMeals().pipe(
       map(meals => MenuActions.setMenuItems({ meals }))
     )),
     tap(() => this.store$.dispatch(MenuActions.setLoading({ loading: false }))),

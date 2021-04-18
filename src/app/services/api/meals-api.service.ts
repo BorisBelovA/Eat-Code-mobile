@@ -14,6 +14,7 @@ export class MealsApiService {
     private http: HttpClient
   ) { }
 
+
   public getMealsByRestaurantIds(ids: number[]): Observable<Meal[]> {
     return this.http.get<dto.HttpResponse<dto.Meal[]>>('https://eat-code-web-api.herokuapp.com/api/meals/get-by-restaurant-id',
     {
@@ -40,5 +41,41 @@ export class MealsApiService {
         ]
       })))
     );
+  }
+
+  public getMeals(): Observable<Meal[]> {
+    return this.http.get<{
+      id: number;
+      value: string;
+      description: string;
+      price: number;
+      rating: number
+    }[]>('http://localhost:9098/bmstuapi/meal/getAll').pipe(
+      map(i => [{
+        id: 1,
+        value: 'Каппа ролл',
+        description: 'Ролл с огурцом',
+        price: 112,
+        rating: 0.9,
+      },
+      {
+        id: 1,
+        value: 'Авокадо ролл',
+        description: 'Ролл с авокадо',
+        price: 120,
+        rating: 0.6,
+      }
+    ].map(j => ({
+        id: j.id,
+        name: j.value,
+        image: '../../../assets/images/meal-placeholder/image.webp',
+        price: j.price,
+        rating: j.rating,
+        description: j.description,
+        nutrition: [],
+        restaurantId: 0,
+        categoryId: 0
+      })))
+    )
   }
 }

@@ -7,10 +7,10 @@ const routes: Routes = [
     path: '',
     component: TabsPage,
     children: [
-      {
-        path: 'main',
-        loadChildren: () => import('../pages/main/main.module').then(m => m.MainModule)
-      },
+      // {
+      //   path: 'main',
+      //   loadChildren: () => import('../pages/main/main.module').then(m => m.MainModule)
+      // },
       {
         path: 'menu',
         loadChildren: () => import('../pages/menu/menu.module').then(m => m.MenuModule)
@@ -25,14 +25,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'main',
+        redirectTo: 'menu',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'tabs/main',
+    redirectTo: 'tabs/menu',
     pathMatch: 'full'
   }
 ];

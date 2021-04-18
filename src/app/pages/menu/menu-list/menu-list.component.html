@@ -1,9 +1,9 @@
 <ion-list>
-  <ion-list-header lines="inset">
+  <!-- <ion-list-header lines="inset">
     <ion-label>ДжонДжоли</ion-label>
     <ion-button *ngIf="listCollapsed" (click)="listCollapsed = false">Показать блюда</ion-button>
     <ion-button *ngIf="!listCollapsed" (click)="listCollapsed = true">Скрыть все</ion-button>
-  </ion-list-header>
+  </ion-list-header> -->
 
   <ng-container *ngIf="!listCollapsed">
     <ion-item-sliding *ngFor="let item of items" icon-only>
@@ -18,7 +18,13 @@
         <ion-thumbnail slot="start">
           <img [src]="'../../../../assets/images/meal-placeholder/' + item.image">
         </ion-thumbnail>
-        <ion-label>{{ item.name }}</ion-label>
+        <ion-label class="menu-item-name">
+          <div>{{ item.name }}</div>
+          <div class="menu-item__rating">
+            <ion-icon name="star-outline"></ion-icon>
+            {{ item.rating }}
+          </div>
+        </ion-label>
         <span>{{ item.price }}₽</span>
       </ion-item>
 
