@@ -1,25 +1,24 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
 import { AuthorizationApiService } from 'src/app/services/api/authorization-api.service';
 import { AppState } from 'src/app/store/reducer';
 import * as SystemActions from '../../store/system/system.actions';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class RegisterComponent implements OnInit {
 
   public login: string | null = null;
   public password: string | null = null;
-
-  @Output()
-  public signIn = new EventEmitter();
+  public name: string | null = null;
+  public phone: string | null = null;
+  public email: string | null = null;
+  public birthdate: string | null = null;
 
   constructor(
     private animationCtrl: AnimationController,
@@ -32,18 +31,40 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit(): void {
     const animation = this.animationCtrl.create()
-    .addElement(document.querySelector('[data-id="login-page"]'))
+    .addElement(document.querySelector('[data-id="register-page"]'))
     .duration(1000)
     .fromTo('opacity', 0, 1);
 
     animation.play();
   }
 
-  public trySignIn() {
-    if (!this.login || !this.password) {
+  public disabled(): boolean {
+    return !this.login 
+    || !this.password
+    || !this.name
+    || !this.email
+    || !this.phone
+    || !this.birthdate
+  }
+  public tryRegister() {
+    if (
+      !this.login 
+      || !this.password
+      || !this.name
+      || !this.email
+      || !this.phone
+      || !this.birthdate
+    ) {
       throw new Error('Заполните логин или пароль')
     } else {
-      this.authService.login(this.login, this.password).subscribe(
+      this.authService.register(
+        this.login,
+        this.password,
+        this.name,
+        this.phone,
+        this.email,
+        this.birthdate
+      ).subscribe(
         result => {
           if (result.assepted === false) {
             alert('Не смогли авторизоваться');
@@ -60,4 +81,5 @@ export class LoginComponent implements OnInit, AfterViewInit {
       )
     }
   }
+
 }

@@ -16,8 +16,10 @@ export class OrderApiService {
     mealIds: number[],
     totalPrice: number
   ): Observable<any> {
-    return this.http.get('http://localhost:9098/bmstuapi/order/add', {
-      // params
+    return this.http.post('http://localhost:9098/bmstuapi/client/createOrder', {
+      id: clientId,
+      meals: mealIds,
+      cost: totalPrice
     })
   }
 }

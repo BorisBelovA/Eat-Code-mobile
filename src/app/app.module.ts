@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { RestaurantsEffects } from './store/restaurants/restautants.effects';
 import { OrderEffects } from './store/order/order.effects';
+import { RegisterModule } from './pages/register/register.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -27,7 +28,7 @@ import { OrderEffects } from './store/order/order.effects';
     StoreModule.forRoot(reducer),
     EffectsModule.forRoot([RestaurantsEffects, OrderEffects]),
     StoreDevtoolsModule.instrument({}),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     StatusBar,

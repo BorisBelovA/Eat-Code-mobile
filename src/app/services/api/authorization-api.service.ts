@@ -12,7 +12,6 @@ export class AuthorizationApiService {
   ) { }
 
   public login(login: string, password: string): Observable<{assepted: boolean, client?: number}> {
-    // return of({ assepted: true, client: 1})
     return this.http.get<{assepted: boolean, client?: number}>('http://localhost:9098/bmstuapi/client/login',
     {
       params: {
@@ -20,5 +19,23 @@ export class AuthorizationApiService {
         password
       }
     });
+  }
+
+  public register(
+    login: string,
+    password: string,
+    name: string,
+    phone: string,
+    email: string,
+    birthdate: string
+  ): Observable<any> {
+    return this.http.post('http://localhost:9098/bmstuapi/client/register', {
+      login,
+      password,
+      name,
+      phone: Number(phone),
+      email,
+      dob: Number(0)
+    })
   }
 }
