@@ -28,6 +28,13 @@ const categoriesReducer = createReducer(
     })
   ),
   on(
+    OrderActions.clearCart,
+    (state) => ({
+      ...state,
+      meals: []
+    })
+  ),
+  on(
     OrderActions.decrementMeal,
     (state, { meal }) => ({
       ...state,

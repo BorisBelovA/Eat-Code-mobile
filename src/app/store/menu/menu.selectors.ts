@@ -14,3 +14,8 @@ export const selectIsLoading = createSelector(
     selectMenuState,
     state => state.loading
 );
+
+export const selectOrdered = createSelector(
+    selectMenuState,
+    state => state.ordered
+)

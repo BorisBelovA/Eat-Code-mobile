@@ -11,9 +11,15 @@ export const setLoading = createAction(
   props<{ loading: boolean }>()
 );
 
+export const setOrdered = createAction(
+  '[Menu] set ordered',
+  props<{ meals: models.Meal[]}>()
+);
+
 export const all = union({
   setMenuItems,
-  setLoading
+  setLoading,
+  setOrdered
 });
 
 export type MenuActions = typeof all;

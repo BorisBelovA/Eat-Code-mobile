@@ -10,6 +10,10 @@ export const addToCart = createAction(
   props<{ meal: models.Meal }>()
 );
 
+export const clearCart = createAction(
+  '[Order] clear cart'
+);
+
 export const removeFromCart = createAction(
   '[Order] remove from cart',
   props<{ meal: models.Meal }>()

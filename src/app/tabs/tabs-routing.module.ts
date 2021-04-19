@@ -16,11 +16,11 @@ const routes: Routes = [
         loadChildren: () => import('../pages/menu/menu.module').then(m => m.MenuModule)
       },
       {
-        path: 'order',
+        path: 'bucket',
         loadChildren: () => import('../pages/order/order.module').then(m => m.OrderModule)
       },
       {
-        path: 'profile',
+        path: 'order',
         loadChildren: () => import('../pages/profile/profile.module').then(m => m.ProfileComponentModule)
       },
       {

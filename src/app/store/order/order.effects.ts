@@ -8,6 +8,7 @@ import * as OrderSelectors from './order.selectors';
 import * as SystemSelectors from '../system/system.selectors';
 import { OrderApiService } from 'src/app/services/api/order-api.service';
 import { ToastController } from '@ionic/angular';
+import * as MenuActions from '../menu/menu.actions';
 
 @Injectable()
 export class OrderEffects {
@@ -20,11 +21,12 @@ export class OrderEffects {
       const orderedMeals = OrderSelectors.selectOrderedMeals(state);
       const ids = orderedMeals.map(i => Number(i.id));
       const totalPrice = orderedMeals.reduce((acc, curr) => acc + curr.price, 0);
+      this.store$.dispatch(MenuActions.setOrdered({meals: orderedMeals}))
       const userId = Number(SystemSelectors.selectUserId(state));
       return this.ordersApi.createOrder(userId, ids, totalPrice).pipe(
-        tap(result => {
-          console.log(result)
+        map(i => {
           this.showToast('Заказ успешно создан!')
+          return OrderActions.clearCart();
         })
       );
     })

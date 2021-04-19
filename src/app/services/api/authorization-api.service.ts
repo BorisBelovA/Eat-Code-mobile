@@ -29,13 +29,15 @@ export class AuthorizationApiService {
     email: string,
     birthdate: string
   ): Observable<any> {
-    return this.http.post('http://localhost:9098/bmstuapi/client/register', {
-      login,
-      password,
-      name,
-      phone: Number(phone),
-      email,
-      dob: Number(0)
+    return this.http.get('http://localhost:9098/bmstuapi/client/register', {
+      params: {
+        login,
+        password,
+        name,
+        phone,
+        email,
+        dob: birthdate
+      }
     })
   }
 }

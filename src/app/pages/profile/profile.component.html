@@ -1,6 +1,6 @@
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="4">
         <ion-img src="../../../assets/images/avatar-placeholder/image.jpg"></ion-img>
       </ion-col>
@@ -10,41 +10,29 @@
           <ion-button expand="full">Редактировать</ion-button>
         </div>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   
     <ion-row class="ion-padding-top">
       <ion-col size="12">
         <div class="profile-section">
-          <span class="profile-section__header">Ранее заказанное</span>
+          <span class="profile-section__header">Ваш заказ</span>
           <div class="profile-section__divider"></div>
           <div class="profile-section__content">
-            <ion-slides [options]="ordersSlider">
-
-              <ion-slide *ngFor="let order of orders" class="card__order-slide">
-                <div class="card">
-                  <div class="card__id">№ {{ order.id }}</div>
-                  <div class="card__info">
-                    <span>Дата заказа: {{ order.date }}</span>
-                    <span>Общая сумма: {{ order.totalAmount }}</span>
-                  </div>
-                  <div class="card__goods-list" style="width: 100%;">
-                    <ion-slides [options]="sliderOptions">
-                      <ion-slide *ngFor="let meal of order.meals">
-                        <ion-item lines="none">
-                          <ion-img src="../../../assets/images/meal-placeholder/image.webp"></ion-img>
-                        </ion-item>
-                      </ion-slide>
-                    </ion-slides>
-                  </div>
-                </div>
-              </ion-slide>
-            </ion-slides>
+            <div class="total-cost">На сумму {{ totalCost$ | async }}</div>
+            <div class="ordered-meals">
+              Вы заказали:
+              <ul>
+                <li *ngFor="let meal of orderedMeals$ | async">
+                  {{ meal.name }}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="12">
         <div class="profile-section">
           <span class="profile-section__header">Ваши бронирования</span>
@@ -75,7 +63,7 @@
           </div>
         </div>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
 </ion-content>
 

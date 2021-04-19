@@ -3,12 +3,14 @@ import { ModalController } from '@ionic/angular';
 import * as models from 'models';
 import { Store } from '@ngrx/store';
 import { of, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppState } from 'src/app/store/reducer';
 import * as ProfileSelectors from './profile.selectors';
 import { ReservationWizardComponent } from './components/reservation-wizard/reservation-wizard.component';
 import { RestaurantApiService } from 'src/app/services/api/restaurant-api.service';
 import { tap } from 'rxjs/operators';
 import { ReservationsApiService } from 'src/app/services/api/reservations-api.service';
+import * as MenuSelectors from '../../store/menu/menu.selectors';
 
 @Component({
   selector: 'app-profile',
@@ -36,44 +38,13 @@ export class ProfileComponent implements OnInit {
   };
 
 
-  public orders = [
-    {
-      date: '12 ферваля 2021',
-      id: 12315235,
-      totalAmount: 5345,
-      meals: [
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-      ]
-    },
-    {
-      date: '12 ферваля 2021',
-      id: 12315235,
-      totalAmount: 5345,
-      meals: [
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-      ]
-    },
-    {
-      date: '12 ферваля 2021',
-      id: 12315235,
-      totalAmount: 5345,
-      meals: [
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-      ]
-    },
-  ];
+  public orderedMeals$ = this.store$.select(MenuSelectors.selectOrdered).pipe(
+    map(meals => meals)
+  );
+
+  public totalCost$ = this.orderedMeals$.pipe(
+    map(meals => meals.reduce((summ: number, meal) => summ + meal.price, 0).toFixed(2))
+  );
 
   public reservations: models.Reservation[] = [];
 
