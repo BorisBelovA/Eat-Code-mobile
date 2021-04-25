@@ -21,14 +21,14 @@
 
 .meal-card {
   display: flex;
+  padding-bottom: 0.5rem;
 
   &__image {
     background-image: url("../../../assets/images/meal-placeholder/image.webp");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    width: 5rem;
-    height: 5rem;
+    width: 12rem;
   }
 
   &__title {

@@ -8,7 +8,7 @@ export interface OrderState {
 
 export const initialState: OrderState = {
   meals: []
-}
+};
 
 const categoriesReducer = createReducer(
   initialState,
@@ -35,6 +35,13 @@ const categoriesReducer = createReducer(
         ...state.meals.slice(0, state.meals.findIndex(m => m.id === meal.id)),
         ...state.meals.slice(state.meals.findIndex(m => m.id === meal.id) + 1)
       ]
+    })
+  ),
+  on(
+    OrderActions.clearOrder,
+    (state) => ({
+      ...state,
+      meals: []
     })
   )
 )

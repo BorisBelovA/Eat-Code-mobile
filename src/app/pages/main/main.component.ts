@@ -33,7 +33,9 @@ export class MainComponent implements OnInit, AfterViewInit {
       price: 450,
       rating: 3.2,
       description: 'Test description',
-      nutrition: []
+      nutrition: [],
+      restaurantId: 1,
+      categoryId: 1
     },
     {
       id: 1,
@@ -42,7 +44,9 @@ export class MainComponent implements OnInit, AfterViewInit {
       price: 450,
       rating: 5,
       description: 'Test description',
-      nutrition: []
+      nutrition: [],
+      restaurantId: 1,
+      categoryId: 1
     },
     {
       id: 1,
@@ -51,7 +55,9 @@ export class MainComponent implements OnInit, AfterViewInit {
       price: 450,
       rating: 2.8,
       description: 'Test description',
-      nutrition: []
+      nutrition: [],
+      restaurantId: 1,
+      categoryId: 1
     },
     {
       id: 1,
@@ -60,7 +66,9 @@ export class MainComponent implements OnInit, AfterViewInit {
       price: 450,
       rating: 4.4,
       description: 'Test description',
-      nutrition: []
+      nutrition: [],
+      restaurantId: 1,
+      categoryId: 1
     }
   ];
 

@@ -15,6 +15,7 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { RestaurantsEffects } from './store/restaurants/restautants.effects';
+import { OrderEffects } from './store/order/order.effects';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,7 +25,7 @@ import { RestaurantsEffects } from './store/restaurants/restautants.effects';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducer),
-    EffectsModule.forRoot([RestaurantsEffects]),
+    EffectsModule.forRoot([RestaurantsEffects, OrderEffects]),
     StoreDevtoolsModule.instrument({}),
     HttpClientModule
   ],

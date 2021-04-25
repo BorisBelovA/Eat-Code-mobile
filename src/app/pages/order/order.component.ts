@@ -58,4 +58,8 @@ export class OrderComponent implements OnInit {
     }));
   }
 
+  public createOrder(): void {
+    this.store$.dispatch(OrderActions.createOrder())
+  }
+
 }

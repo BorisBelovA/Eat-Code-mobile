@@ -20,6 +20,14 @@ export const decrementMeal = createAction(
   props<{ meal: models.Meal}>()
 );
 
+export const createOrder = createAction(
+  '[Order] create order'
+);
+
+export const clearOrder = createAction(
+  '[Order] clear order'
+);
+
 export const all = union({
   testAction,
   addToCart,

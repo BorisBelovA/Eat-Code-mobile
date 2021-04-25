@@ -12,7 +12,7 @@ export interface Meal {
   readonly categoryId: number;
   readonly name: string;
   readonly description: string;
-  readonly price: number;
+  readonly price: string;
   readonly photo: string;
   readonly rating: number;
 }

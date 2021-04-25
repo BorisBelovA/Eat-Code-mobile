@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BLE } from '@ionic-native/ble/ngx';
 import { from, interval, Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, filter } from 'rxjs/operators';
 import * as models from 'models';
 import * as dto from 'dto';
 
@@ -35,7 +35,8 @@ export class LocationService {
   public startBeaconsScan(): Observable<models.BleDevice> {
     return interval(500).pipe(
       switchMap(() => this.ble.scan([], 0.5).pipe(
-        map(i => this.mapToModelBleDevice(i))
+        map(i => this.mapToModelBleDevice(i)),
+        filter(i => ['54d7a75fdff5e725588b', 'e59ff57e5694ca22584d'].includes(i.uuid))
       ))
     )
   }

@@ -25,7 +25,7 @@ export class MealsApiService {
         id: j.id,
         name: j.name,
         image: j.photo,
-        price: j.price,
+        price: Number(j.price),
         rating: j.rating,
         description: j.description,
         restaurantId: j.restaurantId,
