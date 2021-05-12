@@ -3,7 +3,7 @@ import * as models from 'models';
 import esri = __esri;
 import { RestaurantApiService } from 'src/app/services/api/restaurant-api.service';
 import { MapService } from 'src/app/services/map.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { ReservationsApiService } from 'src/app/services/api/reservations-api.service';
 
 interface WizardStep {
@@ -52,7 +52,8 @@ export class ReservationWizardComponent implements OnInit {
     private restaurantApi: RestaurantApiService,
     private reservationsApi: ReservationsApiService,
     private mapService: MapService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private toastController: ToastController
   ) { }
 
   @ViewChild('mapViewEl')
@@ -90,8 +91,10 @@ export class ReservationWizardComponent implements OnInit {
       tableId: this.selectedTableId
     }).subscribe({
       next: () => {
-        console.log(this.selectedRestaurantId, this.selectedDate, this.selectedTableId);
         this.dismissModal();
+      },
+      error: () => {
+        this.showToast('Не удалось зарезервировать столик. Попробуйте выбрать другие даты / время / столик.')
       }
     });
   }
@@ -111,5 +114,8 @@ export class ReservationWizardComponent implements OnInit {
       dismissed: true
     });
   }
+
+  private showToast = (message: string) => this.toastController.create({ message, duration: 1000 }).then(toast => toast.present());
+
 
 }

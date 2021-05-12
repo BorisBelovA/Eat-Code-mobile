@@ -75,3 +75,34 @@
     }
   }
 }
+
+.payment-type {
+  &__container {
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid #666666;
+    padding: 0.5rem;
+    border-radius: 4px;
+    color: #666666;
+
+    &.active {
+      border: 2px solid #3880ff;
+      & .payment-type__logo {
+        color: #3880ff;
+      }
+    }
+  }
+
+  &__logo {
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__title {
+    margin-left: 1rem;
+  }
+}

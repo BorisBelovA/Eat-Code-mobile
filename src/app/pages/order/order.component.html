@@ -8,9 +8,13 @@
 
 <ion-content [fullscreen]="true">
   <ion-grid class="h-100 d-flex flex-column">
-    <ng-container *ngIf="anyItemsInOrder$ | async then order; else emptyOrder"></ng-container>
+    <ng-container *ngIf="anyItemsInOrder$ | async then orderContainer; else emptyOrder"></ng-container>
   </ion-grid>
 </ion-content>
+
+<ng-template #orderContainer>
+  <ng-container *ngIf="step === 'OrderList' then order; else payment"></ng-container>
+</ng-template>
 
 <ng-template #order>
   <ion-row class="ordered-meals">
@@ -38,7 +42,52 @@
   </ion-row>
   <ion-row>
     <ion-col size="12">
-      <ion-button expand="full" (click)="createOrder()">Оформить заказ</ion-button>
+      <ion-button expand="full" (click)="step = 'Payment'">Далее</ion-button>
+      <!-- <ion-button expand="full" (click)="createOrder()">Оформить заказ</ion-button> -->
+    </ion-col>
+  </ion-row>
+</ng-template>
+
+<ng-template #payment>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="10">
+      <h2 style="text-align: center; color: #666666;">Выберите способ оплаты</h2>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center" (click)="selectType('Credit')">
+    <ion-col size="10">
+      <div class="payment-type__container" [class.active]="paymentType === 'Credit'">
+        <div class="payment-type__logo">
+          <ion-icon name="card-outline"></ion-icon>
+        </div>
+        <div class="payment-type__title">Банковская карта</div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center" (click)="selectType('Cash')">
+    <ion-col size="10">
+      <div class="payment-type__container" [class.active]="paymentType === 'Cash'">
+        <div class="payment-type__logo">
+          <ion-icon name="cash-outline"></ion-icon>
+        </div>
+        <div class="payment-type__title">Наличные</div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center" (click)="selectType('GPay')">
+    <ion-col size="10">
+      <div class="payment-type__container" [class.active]="paymentType === 'GPay'">
+        <div class="payment-type__logo">
+          <ion-icon name="logo-google"></ion-icon>
+        </div>
+        <div class="payment-type__title">Google Pay</div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-padding-top">
+    <ion-col size="10">
+      <ion-button expand="full" [disabled]="!paymentType" (click)="createOrder()">Оформить заказ</ion-button>
     </ion-col>
   </ion-row>
 </ng-template>

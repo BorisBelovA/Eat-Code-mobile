@@ -1,4 +1,8 @@
 <ion-content *ngIf="locationDefined">
+  <ion-toolbar class="position">
+    <p class="position__table">Ваш столик - №14</p>
+    <p class="position__sub-text">Нажмите сюда, чтобы изменить</p>
+  </ion-toolbar>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <h3>Рекомендовано для вас</h3>
@@ -6,7 +10,7 @@
     <ion-row class="ion-margin-bottom">
       <ion-col [size]="12">
         <app-recommendations-slider
-          [items]="recommendations"
+          [items]="(recommendations$ | async)"
           (addToCart)="addToCart($event)"
         ></app-recommendations-slider>
       </ion-col>

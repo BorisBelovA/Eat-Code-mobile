@@ -1,18 +1,25 @@
-// .meal-photo {
-//     border-radius: 15px;
-// }
-
-// .meal-title, .meal-rating {
-//     margin: 0;
-// }
-
-// .meal-container {
-//     border: 1px solid #C4C4C4;
-//     border-radius: 15px;
-// }
+:host {
+  height: 100%;
+  padding: 0.5rem;
+}
 
 ::ng-deep {
-    ion-icon {
-        font-size: 20px;
+  ion-icon {
+    font-size: 20px;
+  }
+
+  .vertical-card {
+    margin: 0%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .meal-name {
+      flex-grow: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
+  }
 }

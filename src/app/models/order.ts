@@ -3,8 +3,9 @@ import * as models from 'models';
 export interface OrderShort {
   id: number;
   clientId: number;
-  mealIds: number[];
+  meals: number[];
   totalPrice: number;
+  orderDate: string;
 }
 
 export interface OrderFull {

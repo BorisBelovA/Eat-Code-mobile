@@ -10,6 +10,8 @@ type MealWithAmount = models.Meal & {
   amount: number
 }
 
+type PaymentType = 'Credit' | 'Cash' | 'GPay' | 'Apple Pay';
+
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -32,6 +34,10 @@ export class OrderComponent implements OnInit {
   public totalCost$ = this.orderedMeals$.pipe(
     map(meals => meals.reduce((summ: number, meal) => summ + meal.price * meal.amount, 0).toFixed(2))
   );
+
+  public paymentType: PaymentType | null = null;
+
+  public step: 'OrderList' | 'Payment' = 'OrderList';
 
   constructor(
     private store$: Store<AppState>
@@ -60,6 +66,10 @@ export class OrderComponent implements OnInit {
 
   public createOrder(): void {
     this.store$.dispatch(OrderActions.createOrder())
+  }
+
+  public selectType(paymentType: PaymentType): void {
+    this.paymentType = paymentType;
   }
 
 }

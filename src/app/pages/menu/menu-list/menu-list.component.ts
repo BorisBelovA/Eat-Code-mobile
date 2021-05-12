@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Meal } from 'models';
+import * as models from 'models';
 
 @Component({
   selector: 'app-menu-list',
@@ -9,13 +9,20 @@ import { Meal } from 'models';
 export class MenuListComponent implements OnInit {
 
   @Input()
-  public items: Meal[];
+  public items: {
+    restaurant: models.Restaurant,
+    meals: models.Meal[],
+    collapsed: boolean
+  }[];
 
   @Output()
-  public addToCart: EventEmitter<Meal> = new EventEmitter<Meal>()
+  public addToCart: EventEmitter<models.Meal> = new EventEmitter<models.Meal>();
 
   @Output()
-  public removeFromCart: EventEmitter<Meal> = new EventEmitter<Meal>();  
+  public removeFromCart: EventEmitter<models.Meal> = new EventEmitter<models.Meal>();
+
+  @Output()
+  public markAsFavorite = new EventEmitter<{meal: models.Meal, isFavorite: boolean}>();
 
   constructor() { }
 
@@ -23,14 +30,17 @@ export class MenuListComponent implements OnInit {
 
   public listCollapsed = false;
 
-  public toCart(meal: Meal): void {
-    console.log('Я добавился в корзину :)', meal)
-    this.addToCart.emit(meal)
+  public toCart(meal: models.Meal): void {
+    console.log('Я добавился в корзину :)', meal);
+    this.addToCart.emit(meal);
   }
 
-  public remove(item: Meal): void {
-    console.log('Я удалился из корзины')
+  public remove(item: models.Meal): void {
+    console.log('Я удалился из корзины');
     this.removeFromCart.emit(item);
   }
 
+  public like(item: models.Meal, isFavorite: boolean): void {
+    this.markAsFavorite.next({ meal: item, isFavorite });
+  }
 }

@@ -9,6 +9,7 @@ import { ReservationWizardComponent } from './components/reservation-wizard/rese
 import { RestaurantApiService } from 'src/app/services/api/restaurant-api.service';
 import { tap } from 'rxjs/operators';
 import { ReservationsApiService } from 'src/app/services/api/reservations-api.service';
+import { OrdersApiService } from 'src/app/services/api/orders-api.service';
 
 @Component({
   selector: 'app-profile',
@@ -36,44 +37,46 @@ export class ProfileComponent implements OnInit {
   };
 
 
-  public orders = [
-    {
-      date: '12 ферваля 2021',
-      id: 12315235,
-      totalAmount: 5345,
-      meals: [
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-      ]
-    },
-    {
-      date: '12 ферваля 2021',
-      id: 12315235,
-      totalAmount: 5345,
-      meals: [
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-      ]
-    },
-    {
-      date: '12 ферваля 2021',
-      id: 12315235,
-      totalAmount: 5345,
-      meals: [
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-        {id: 1, name: '12321'},
-      ]
-    },
-  ];
+  // public orders = [
+  //   {
+  //     date: '12 ферваля 2021',
+  //     id: 12315235,
+  //     totalAmount: 5345,
+  //     meals: [
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //     ]
+  //   },
+  //   {
+  //     date: '12 ферваля 2021',
+  //     id: 12315235,
+  //     totalAmount: 5345,
+  //     meals: [
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //     ]
+  //   },
+  //   {
+  //     date: '12 ферваля 2021',
+  //     id: 12315235,
+  //     totalAmount: 5345,
+  //     meals: [
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //       {id: 1, name: '12321'},
+  //     ]
+  //   },
+  // ];
+
+  public orders: models.OrderShort[] = [];
 
   public reservations: models.Reservation[] = [];
 
@@ -86,18 +89,29 @@ export class ProfileComponent implements OnInit {
   constructor(
     public modalController: ModalController,
     private restaurantApi: RestaurantApiService,
+    private ordersApi: OrdersApiService,
     private reservationsApi: ReservationsApiService,
     private store$: Store<AppState>
   ) { }
 
   ngOnInit() {
     this.getReservations();
+    this.getClientOrders();
   }
 
   public getReservations(): void {
     this.loading = true;
     this.reservationsApi.getAll().pipe(
       tap(reservatios => this.reservations = reservatios)
+    ).subscribe({
+      next: () => this.loading = false
+    });
+  }
+
+  public getClientOrders(): void {
+    this.loading = true;
+    this.ordersApi.getClientOrders(1).pipe(
+      tap(orders => this.orders = orders)
     ).subscribe({
       next: () => this.loading = false
     });

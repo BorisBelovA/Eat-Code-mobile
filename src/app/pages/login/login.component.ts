@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnimationController } from '@ionic/angular';
+import { AnimationController, ToastController } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { ClientApiService } from 'src/app/services/api/client-api.service';
+import { AppState } from 'src/app/store/reducer';
+import * as SystemActions from '../../store/system/system.actions';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +16,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @Output()
   public signIn = new EventEmitter();
 
+  public login: string = '';
+
+  public password: string = '';
+
+  public loading = false;
+
   constructor(
     private animationCtrl: AnimationController,
-    private router: Router
+    private clientApi: ClientApiService,
+    private router: Router,
+    private store$: Store<AppState>,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {}
@@ -29,7 +42,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   public trySignIn() {
-    this.signIn.emit();
-    this.router.navigate(['tabs'])
+    this.loading = true;
+    this.clientApi.login(this.login, this.password).subscribe({
+      next: (client) => {
+        if (client) {
+          this.loading = false;
+          this.signIn.emit();
+          this.store$.dispatch(SystemActions.setClient({ client }));
+          this.router.navigate(['tabs']);
+        } else {
+          this.loading = false;
+          this.showToast('Не удалось авторизоваться. Проверьте логин и пароль!');
+        }
+      }
+    });
   }
+
+  private showToast = (message: string) => this.toastController.create({ message, duration: 2000 }).then(toast => toast.present());
 }

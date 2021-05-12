@@ -4,3 +4,4 @@ export * from './http-response';
 export * from './reservation';
 export * from './meal';
 export * from './order';
+export * from './client';

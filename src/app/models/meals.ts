@@ -8,4 +8,5 @@ export interface Meal {
   nutrition: number[];
   restaurantId: number;
   categoryId: number;
+  isFavorite: boolean;
 }

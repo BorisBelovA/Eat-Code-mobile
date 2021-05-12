@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { RestaurantsEffects } from './store/restaurants/restautants.effects';
 import { OrderEffects } from './store/order/order.effects';
+import { MenuEffects } from './store/menu/menu.effects';
+import { NotificationService } from './services/notification.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -25,14 +27,15 @@ import { OrderEffects } from './store/order/order.effects';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducer),
-    EffectsModule.forRoot([RestaurantsEffects, OrderEffects]),
+    EffectsModule.forRoot([MenuEffects, RestaurantsEffects, OrderEffects]),
     StoreDevtoolsModule.instrument({}),
     HttpClientModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

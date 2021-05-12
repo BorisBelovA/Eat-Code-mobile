@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import * as models from 'models';
 
 @Component({
@@ -6,12 +6,12 @@ import * as models from 'models';
   templateUrl: './recommendations-slider.component.html',
   styleUrls: ['./recommendations-slider.component.scss'],
 })
-export class RecommendationsSliderComponent {
+export class RecommendationsSliderComponent implements OnChanges{
 
   public slideOpts = {
     initialSlide: 0,
     speed: 400,
-    slidesPerView: 1.7
+    slidesPerView: 1.7,
   };
 
   @Input()
@@ -24,6 +24,10 @@ export class RecommendationsSliderComponent {
   public addToCart = new EventEmitter<models.Meal>();
 
   constructor() { }
+
+  public ngOnChanges(changes: SimpleChanges){
+     console.log(changes)
+  }
 
   public add(item: models.Meal): void {
     this.addToCart.emit(item);

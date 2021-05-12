@@ -9,6 +9,8 @@ import { GlobalPositionSelectorComponent } from './components/global-position-se
 import * as models from 'models';
 import * as RestaurantActions from '../../store/restaurants/restaurants.actions';
 import * as OrderActions from '../../store/order/order.actions';
+import KalmanFilter from 'kalmanjs';
+import * as MenuSelectors from '../../store/menu/menu.selectors';
 
 @Component({
   selector: 'app-main',
@@ -25,56 +27,18 @@ export class MainComponent implements OnInit, AfterViewInit {
     public toastController: ToastController
   ) { }
 
-  public recommendations: models.Meal[] = [
-    {
-      id: 1,
-      name: 'Test',
-      image: '',
-      price: 450,
-      rating: 3.2,
-      description: 'Test description',
-      nutrition: [],
-      restaurantId: 1,
-      categoryId: 1
-    },
-    {
-      id: 1,
-      name: 'Test',
-      image: '',
-      price: 450,
-      rating: 5,
-      description: 'Test description',
-      nutrition: [],
-      restaurantId: 1,
-      categoryId: 1
-    },
-    {
-      id: 1,
-      name: 'Test',
-      image: '',
-      price: 450,
-      rating: 2.8,
-      description: 'Test description',
-      nutrition: [],
-      restaurantId: 1,
-      categoryId: 1
-    },
-    {
-      id: 1,
-      name: 'Test',
-      image: '',
-      price: 450,
-      rating: 4.4,
-      description: 'Test description',
-      nutrition: [],
-      restaurantId: 1,
-      categoryId: 1
-    }
-  ];
-
   public source$ = this.locationService.startBeaconsScan();
 
+  public recommendations$ = this.store$.select(MenuSelectors.selectRecommendedMeals);
+
   public locationDefined = false;
+
+  public kalman = new KalmanFilter({R: 0.01, Q: 20, A: 1.1});
+
+  //54d7a75fdff5e725588b
+  public firstBeacon = [];
+  //e59ff57e5694ca22584d
+  public secondBeacon = [];
 
   ngOnInit() {
     this.locationService.getGlobalPosition().subscribe({
@@ -88,7 +52,24 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.selectPos();
       }
     });
-    this.source$.subscribe(res => console.log(res))
+    this.source$.subscribe(res => {
+      // console.log(`UUID: ${res.uuid} - RSSI: ${res.rssi}, filtered: ${this.kalman.filter(res.rssi)}`)
+      console.log()
+      if (res.uuid === '54d7a75fdff5e725588b') {
+        this.firstBeacon.push(res.rssi)
+      }
+      if (res.uuid === 'e59ff57e5694ca22584d') {
+        this.secondBeacon.push(res.rssi)
+      }
+      if (this.firstBeacon.length === 20) {
+        const kalman1 = new KalmanFilter({R: 3, Q: 40})
+        console.log('First', this.firstBeacon, this.firstBeacon.map(i => kalman1.filter(i)))
+      }
+      if (this.secondBeacon.length === 20) {
+        const kalman2 = new KalmanFilter({R: 3, Q: 40})
+        console.log('Second', this.secondBeacon, this.secondBeacon.map(i => kalman2.filter(i)))
+      }
+    });
   }
 
   public async selectPos(): Promise<void> {
@@ -98,7 +79,9 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
 
     modal.onDidDismiss().then(
-      (response: { data: models.GlobalLocation }) => this.store$.dispatch(SystemActions.setGlobalLocation({ location: response.data }))
+      (response: { data: models.GlobalLocation }) =>{
+         this.store$.dispatch(SystemActions.setGlobalLocation({ location: response.data }))
+      }
     );
 
     return await modal.present();

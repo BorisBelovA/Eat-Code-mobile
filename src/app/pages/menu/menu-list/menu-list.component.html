@@ -1,39 +1,41 @@
-<ion-list>
-  <ion-list-header lines="inset">
-    <ion-label>ДжонДжоли</ion-label>
-    <ion-button *ngIf="listCollapsed" (click)="listCollapsed = false">Показать блюда</ion-button>
-    <ion-button *ngIf="!listCollapsed" (click)="listCollapsed = true">Скрыть все</ion-button>
-  </ion-list-header>
-
-  <ng-container *ngIf="!listCollapsed">
-    <ion-item-sliding *ngFor="let item of items" icon-only>
-
-      <ion-item-options side="start" (ionSwipe)="remove(item)">
-        <ion-item-option color="danger" [disabled]="true" expandable>
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-
-      <ion-item>
-        <ion-thumbnail slot="start">
-          <img [src]="'../../../../assets/images/meal-placeholder/' + item.image">
-        </ion-thumbnail>
-        <ion-label>{{ item.name }}</ion-label>
-        <span>{{ item.price }}₽</span>
-      </ion-item>
-
-      <ion-item-options side="end" (ionSwipe)="toCart(item)">
-        <ion-item-option color="light">
-          <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="primary" expandable (click)='toCart(item)'>
-          <ion-icon 
-            slot="icon-only"
-            name="cart-outline"
-            [style.color]="'#fff'"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-
-    </ion-item-sliding>
-  </ng-container>
-</ion-list>
+<ng-container *ngFor="let item of items">
+  <ion-list>
+    <ion-list-header lines="inset">
+      <ion-label style="font-size: 20px; font-weight: bold;">{{item.restaurant.name}}</ion-label>
+      <ion-button *ngIf="item.collapsed" (click)="item.collapsed = false">Показать блюда</ion-button>
+      <ion-button *ngIf="!item.collapsed" (click)="item.collapsed = true">Скрыть все</ion-button>
+    </ion-list-header>
+  
+    <ng-container *ngIf="!item.collapsed">
+      <ion-item-sliding *ngFor="let meal of item.meals" icon-only>
+  
+        <ion-item-options side="start" (ionSwipe)="remove(meal)">
+          <ion-item-option color="danger" [disabled]="true" expandable>
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+  
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img [src]="'../../../../assets/images/meal-placeholder/' + meal.image">
+          </ion-thumbnail>
+          <ion-label>{{ meal.name }}</ion-label>
+          <span>{{ meal.price }}₽</span>
+        </ion-item>
+  
+        <ion-item-options side="end" (ionSwipe)="toCart(meal)">
+          <ion-item-option color="light">
+            <ion-icon slot="icon-only" class="favorite" [name]="meal.isFavorite ? 'heart' : 'heart-outline'" (click)="like(meal, !meal.isFavorite)"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="primary" expandable (click)='toCart(meal)'>
+            <ion-icon 
+              slot="icon-only"
+              name="cart-outline"
+              [style.color]="'#fff'"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+  
+      </ion-item-sliding>
+    </ng-container>
+  </ion-list>
+</ng-container>

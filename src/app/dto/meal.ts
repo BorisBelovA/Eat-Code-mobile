@@ -15,4 +15,5 @@ export interface Meal {
   readonly price: string;
   readonly photo: string;
   readonly rating: number;
+  readonly isFavorite: boolean;
 }

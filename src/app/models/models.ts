@@ -5,3 +5,4 @@ export * from './location';
 export * from './ble';
 export * from './restaurants';
 export * from './order';
+export * from './client';

@@ -20,7 +20,19 @@ export class OrdersApiService {
       mealIds: mealIds.join(';#'),
       totalPrice
     }).pipe(
-      map(i => i.items)
+      map(i => ({...i.items, meals: i.items.meals.split(';#').map(i => Number(i))}))
+    );
+  }
+
+  public getClientOrders(clientId: number): Observable<models.OrderShort[]> {
+    return this.http.get<dto.HttpResponse<dto.OrderShort[]>>('https://eat-code-web-api.herokuapp.com/api/orders/get-user-orders?clientId='+clientId).pipe(
+      map(i => i.items.map(j => ({
+        id: j.id,
+        clientId: j.clientId,
+        meals: j.meals.split(';#').map(k => Number(k)),
+        totalPrice: j.totalPrice,
+        orderDate: j.orderDate
+      })))
     )
   }
 }

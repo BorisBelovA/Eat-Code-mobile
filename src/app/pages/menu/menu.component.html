@@ -6,9 +6,10 @@
 </ion-toolbar>
 <ion-content>
   <app-menu-list
-    [items]="meals$ | async"
+    [items]="items$ | async"
     (addToCart)="addToCart($event)"
     (removeFromCart)="removeFromCart($event)"
+    (markAsFavorite)="markAsFavorite($event)"
   ></app-menu-list>
 </ion-content>
 

@@ -24,8 +24,8 @@
                 <div class="card">
                   <div class="card__id">№ {{ order.id }}</div>
                   <div class="card__info">
-                    <span>Дата заказа: {{ order.date }}</span>
-                    <span>Общая сумма: {{ order.totalAmount }}</span>
+                    <span>Дата заказа: {{ order.orderDate}}</span>
+                    <span>Общая сумма: {{ order.totalPrice }}</span>
                   </div>
                   <div class="card__goods-list" style="width: 100%;">
                     <ion-slides [options]="sliderOptions">

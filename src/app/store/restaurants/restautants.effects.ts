@@ -8,6 +8,7 @@ import * as MenuActions from '../menu/menu.actions';
 import { AppState } from '../reducer';
 import { Store } from '@ngrx/store';
 import * as RestaurantsSelectors from './restaurants.selectors';
+import * as SystemSelectors from '../system/system.selectors';
 
 @Injectable()
 export class RestaurantsEffects {
@@ -15,12 +16,9 @@ export class RestaurantsEffects {
   loadRestaurants$ = createEffect(() => this.actions$.pipe(
     ofType(RestaurantsActions.findNearest),
     switchMap(({location}) => this.restaurantsApi.getNearestRestaurants(location).pipe(
-      switchMap(restaurants => {
-        console.log(restaurants);
-        return [
+      switchMap(restaurants => ([
           RestaurantsActions.setNearest({ restaurants  })
-        ];
-      })
+        ]))
     ))
   ));
 
@@ -29,7 +27,8 @@ export class RestaurantsEffects {
     withLatestFrom(this.store$),
     tap(() => this.store$.dispatch(MenuActions.setLoading({ loading: true }))),
     switchMap(([action, state]) => this.mealsService.getMealsByRestaurantIds(
-      RestaurantsSelectors.selectNearbyRestaurants(state).map(i => i.id)
+      RestaurantsSelectors.selectNearbyRestaurants(state).map(i => i.id),
+      SystemSelectors.selectClient(state).id
     ).pipe(
       map(meals => MenuActions.setMenuItems({ meals }))
     )),

@@ -1,12 +1,20 @@
-<ng-container *ngIf="itemType === 'verticalCard'; else blocksSlider">
-  <ion-slides [options]="slideOpts">
+
+<ng-container *ngIf="items && items.length > 0; else empty">
+  <ion-slides [options]="slideOpts" style="height: 100%;">
     <ion-slide *ngFor="let item of items">
-      <app-vertical-card
-        [item]="item"
-        (addToCart)="add($event)"
-      ></app-vertical-card>
+      <app-vertical-card [item]="item" (addToCart)="add($event)"></app-vertical-card>
     </ion-slide>
   </ion-slides>
 </ng-container>
 
+<ng-template #slider>
+</ng-template>
+
 <ng-template #blocksSlider></ng-template>
+
+<ng-template #empty>
+  <div class="empty-text">
+    Увы, мы не смогли найти ничего подходящего для вас
+  </div>
+  <div class="empty-text">😭</div>
+</ng-template>

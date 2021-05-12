@@ -15,7 +15,7 @@
               <ion-col size="10">
                 <ion-item>
                   <ion-label position="floating">Логин</ion-label>
-                  <ion-input type="text"></ion-input>
+                  <ion-input type="text" [(ngModel)]="login"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -24,15 +24,37 @@
               <ion-col size="10">
                 <ion-item>
                   <ion-label position="floating">Пароль</ion-label>
-                  <ion-input type="password"></ion-input>
+                  <ion-input type="password" [(ngModel)]="password"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
 
             <ion-row class="ion-justify-content-center">
               <ion-col size="10">
-                <ion-button expand="block" (click)="trySignIn()">Войти</ion-button>
+                <ion-button expand="block" [disabled]="!login || !password" (click)="trySignIn()">Войти</ion-button>
               </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-center ion-padding-top">
+              Авторизация через:
+              <ion-col size="10" class="socials" >
+                <ion-chip color="primary">
+                  <ion-icon style="margin: 0;" name="logo-google"></ion-icon>
+                </ion-chip>
+                <ion-chip color="primary">
+                  <ion-icon style="margin: 0;" name="logo-vk"></ion-icon>
+                </ion-chip>
+                <ion-chip color="primary">
+                  <ion-icon style="margin: 0;" name="logo-facebook"></ion-icon>
+                </ion-chip>
+                <ion-chip color="primary">
+                  <ion-icon style="margin: 0;" name="logo-yahoo"></ion-icon>
+                </ion-chip>              
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="ion-justify-content-center ion-padding-top">
+              Нет профиля?<a style="margin-left: 0.25rem;" href="">Зарегистрируйтесь</a>
             </ion-row>
 
           </ion-grid>
@@ -41,3 +63,5 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<app-loading-indicator *ngIf="loading"></app-loading-indicator>

@@ -1,0 +1,13 @@
+.position {
+  text-align: center;
+  &__table {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__sub-text {
+    font-size: 14px;
+    margin: 0;
+  }
+}
